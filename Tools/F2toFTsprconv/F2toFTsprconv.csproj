@@ -50,7 +50,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MikuMikuLibrary\MikuMikuLibrary.csproj">
+    <ProjectReference Include="..\..\MikuMikuLibrary\MikuMikuLibrary\MikuMikuLibrary.csproj">
       <Project>{9c7171ca-7379-458f-a9ca-293bbf2c74dc}</Project>
       <Name>MikuMikuLibrary</Name>
     </ProjectReference>
