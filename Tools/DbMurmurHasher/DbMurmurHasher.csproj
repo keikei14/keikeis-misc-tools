@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MikuMikuLibrary\MikuMikuLibrary.Native\MikuMikuLibrary.Native.vcxproj">
-      <Project>{2c3b66bb-f1a9-4513-ab63-570d7687c6a7}</Project>
-      <Name>MikuMikuLibrary.Native</Name>
+    <ProjectReference Include="..\..\MikuMikuLibrary\MikuMikuLibrary\MikuMikuLibrary.csproj">
+      <Project>{9c7171ca-7379-458f-a9ca-293bbf2c74dc}</Project>
+      <Name>MikuMikuLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
