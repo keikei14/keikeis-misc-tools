@@ -292,6 +292,32 @@ namespace MikuMikuLibrary.Objects
 
             string fileName = Path.GetFileName( filePath );
 
+            // Save on OSI if we are modern
+            if ( filePath.EndsWith( ".osd", StringComparison.OrdinalIgnoreCase ) )
+            {
+                var objSetInfo = new ObjectSetInfo();
+                objSetInfo.Name = Path.GetFileNameWithoutExtension( filePath ).ToUpperInvariant();
+                objSetInfo.Id = MurmurHash.Calculate( objSetInfo.Name );
+                objSetInfo.FileName = fileName;
+                objSetInfo.TextureFileName = Path.ChangeExtension( fileName, "txd" );
+                objSetInfo.ArchiveFileName = Path.ChangeExtension( fileName, "farc" );
+
+                foreach ( var obj in Objects )
+                {
+                    objSetInfo.Objects.Add( new ObjectInfo
+                    {
+                        Id = obj.Id,
+                        Name = obj.Name.ToUpperInvariant()
+                    } );
+                }
+
+                var modernObjDatabase = new ObjectDatabase();
+                modernObjDatabase.ObjectSets.Add( objSetInfo );
+                modernObjDatabase.Format = Format;
+                modernObjDatabase.Endianness = Endianness;
+                modernObjDatabase.Save( Path.ChangeExtension( filePath, "osi" ) );
+            }
+
             bool exported = false;
 
             if ( objectDatabase != null && TextureSet != null )
@@ -303,6 +329,8 @@ namespace MikuMikuLibrary.Objects
                     string textureOutputPath = Path.Combine( Path.GetDirectoryName( filePath ),
                         objectSetInfo.TextureFileName );
 
+                    TextureSet.Endianness = Endianness;
+                    TextureSet.Format = Format;
                     TextureSet.Save( textureOutputPath );
                     exported = true;
                 }
@@ -320,7 +348,11 @@ namespace MikuMikuLibrary.Objects
                     textureOutputPath = Path.ChangeExtension( filePath, "txd" );
 
                 if ( !string.IsNullOrEmpty( textureOutputPath ) )
+                {
+                    TextureSet.Endianness = Endianness;
+                    TextureSet.Format = Format;
                     TextureSet.Save( textureOutputPath );
+                }
             }
         }
 

@@ -126,6 +126,9 @@ namespace MikuMikuLibrary.IO.Sections
                 {
                     mSections.Clear();
 
+                    if ( DataSize > 0 && Writer is EnrsBinaryWriter enrsWriter )
+                        mSections.Add( new EnrsSection( SectionMode.Write, enrsWriter.CreateScopeDescriptors( DataSize ) ) );
+
                     if ( IsRelocationTableWorthWriting() )
                     {
                         ISection relocationTableSection;
@@ -140,9 +143,6 @@ namespace MikuMikuLibrary.IO.Sections
 
                         mSections.Add( relocationTableSection );
                     }
-
-                    if ( DataSize > 0 && Writer is EnrsBinaryWriter enrsWriter )
-                        mSections.Add( new EnrsSection( SectionMode.Write, enrsWriter.CreateScopeDescriptors( DataOffset, DataOffset + DataSize ) ) );
 
                     foreach ( var subSectionInfo in SectionInfo.SubSectionInfos.Values.OrderBy( x => x.Priority ) )
                         mSections.AddRange( subSectionInfo.ProcessPropertyForWriting( this ) );
@@ -235,14 +235,14 @@ namespace MikuMikuLibrary.IO.Sections
 
             BaseStream = destination;
 
+            long headerOffset = BaseStream.Position;
+            const int headerSize = 8 * sizeof( uint );
+
             Writer = IsEnrsWorthWriting()
-                ? new EnrsBinaryWriter( BaseStream, Encoding.UTF8, Endianness.Little, true )
+                ? new EnrsBinaryWriter( BaseStream, Encoding.UTF8, Endianness.Little, true, headerOffset + headerSize )
                 : new EndianBinaryWriter( BaseStream, Encoding.UTF8, Endianness.Little, true );
 
-            long headerOffset = Writer.Position;
-            {
-                Writer.WriteNulls( 8 * sizeof( uint ) );
-            }
+            Writer.WriteNulls( headerSize );
 
             DataOffset = Writer.Position;
 
@@ -300,8 +300,7 @@ namespace MikuMikuLibrary.IO.Sections
 
         private bool IsEnrsWorthWriting()
         {
-            return Endianness == Endianness.Little &&
-                   !( this is EnrsSection ) &&
+            return !( this is EnrsSection ) &&
                    !( this is EndOfFileSection ) &&
                    !( this is RelocationTableSectionInt32 ) &&
                    !( this is RelocationTableSectionInt64 );
