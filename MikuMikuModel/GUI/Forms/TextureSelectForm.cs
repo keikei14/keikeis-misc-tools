@@ -58,8 +58,8 @@ namespace MikuMikuModel.GUI.Forms
             if ( disposing )
             {
                 mMainSplitContainer.Panel1.Controls.Clear(); // why tf you disposing texture view control bruh
-                mNodeTreeView.TopNode?.Dispose();
-                mNodeTreeView.TopDataNode?.Dispose();
+                mNodeTreeView.RootNode?.Dispose();
+                mNodeTreeView.RootDataNode?.Dispose();
                 components?.Dispose();
             }
 
@@ -93,6 +93,8 @@ namespace MikuMikuModel.GUI.Forms
                 mMaterialTextureTypeComboBox.Items.Add( typeName );
 
             mMaterialTextureTypeComboBox.SelectedIndex = ( int ) type;
+
+            StyleHelpers.ApplySystemFont( this );
         }
     }
 }
