@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0CD453B7-DCF0-4491-AFE0-E54CFC32F322}</ProjectGuid>
+    <ProjectGuid>{9FDF7D55-B61A-4D86-B933-4782F6AAF696}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DbMurmurHasher</RootNamespace>
-    <AssemblyName>DbMurmurHasher</AssemblyName>
+    <RootNamespace>BatchXtoF2</RootNamespace>
+    <AssemblyName>BatchXtoF2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,11 +51,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MikuMikuLibrary\MikuMikuLibrary.Native\MikuMikuLibrary.Native.vcxproj">
+    <ProjectReference Include="..\..\..\MikuMikuLibrary\MikuMikuLibrary.Native\MikuMikuLibrary.Native.vcxproj">
       <Project>{2c3b66bb-f1a9-4513-ab63-570d7687c6a7}</Project>
       <Name>MikuMikuLibrary.Native</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MikuMikuLibrary\MikuMikuLibrary\MikuMikuLibrary.csproj">
+    <ProjectReference Include="..\..\..\MikuMikuLibrary\MikuMikuLibrary\MikuMikuLibrary.csproj">
       <Project>{9c7171ca-7379-458f-a9ca-293bbf2c74dc}</Project>
       <Name>MikuMikuLibrary</Name>
     </ProjectReference>
