@@ -30,7 +30,7 @@ namespace MikuMikuModel.GUI.Forms
         {
             get
             {
-                var node = ( mNodeTreeView.TopDataNode as ReferenceNode )?.Node;
+                var node = ( mNodeTreeView.RootDataNode as ReferenceNode )?.Node;
                 node?.Populate();
                 return node;
             }
@@ -59,7 +59,7 @@ namespace MikuMikuModel.GUI.Forms
             {
                 mComponents?.Dispose();
                 mRootNode?.Dispose();
-                mNodeTreeView.TopNode?.Dispose();
+                mNodeTreeView.RootNode?.Dispose();
             }
 
             base.Dispose( disposing );
@@ -88,6 +88,8 @@ namespace MikuMikuModel.GUI.Forms
                 mNodeTreeView.Nodes.Add( new NodeAsTreeNode( new ReferenceNode( node ), true )
                     { HideContextMenuStrip = true } );
             }
+
+            StyleHelpers.ApplySystemFont( this );
         }
     }
 }
